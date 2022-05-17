@@ -30,6 +30,10 @@ Plug 'kyazdani42/nvim-tree.lua'
 " ALE
 Plug 'dense-analysis/ale'
 
+" Markdown
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+
+
 call plug#end()
 
 " onedark
@@ -70,3 +74,6 @@ autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tab
 let g:ale_sign_error = '►'
 let g:ale_sign_warning = '▻'
 let g:ale_sign_column_always = 1
+
+" Markdown
+let g:mkdp_auto_start = 1
