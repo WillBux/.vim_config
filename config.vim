@@ -27,6 +27,13 @@ let mapleader = ","
 " Map <Space> to / (search) 
 map <space> /
 
+" Ignore case when searching
+set ignorecase
+
+" When searching try to be smart about cases 
+set smartcase
+
+
 " :WS sudo saves the file 
 command! WS execute 'w !sudo tee % > /dev/null' <bar> edit!
 
