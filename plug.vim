@@ -27,6 +27,9 @@ Plug 'github/copilot.vim'
 Plug 'kyazdani42/nvim-web-devicons' " for file icons
 Plug 'kyazdani42/nvim-tree.lua'
 
+" ALE
+Plug 'dense-analysis/ale'
+
 call plug#end()
 
 " onedark
@@ -52,6 +55,7 @@ let g:onedark_color_overrides = {"background": {"gui": "#101114", "cterm": "234"
 colorscheme onedark
 let g:lightline = {'colorscheme': 'onedark'}
 
+" nvim-tree
 lua << EOF
 require'nvim-tree'.setup {
   open_on_setup = true, -- auto open when opening a directory
@@ -61,3 +65,8 @@ EOF
 
 " auto close tree
 autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif
+
+" ALE
+let g:ale_sign_error = '►'
+let g:ale_sign_warning = '▻'
+let g:ale_sign_column_always = 1

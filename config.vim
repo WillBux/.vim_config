@@ -2,6 +2,7 @@ set encoding=utf-8
 
 " line numbers
 set number
+set numberwidth=1
 
 " spelling, underline with redaoeuad
 set spell
