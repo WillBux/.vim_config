@@ -51,3 +51,13 @@ let g:onedark_terminal_italics = 1
 let g:onedark_color_overrides = {"background": {"gui": "#101114", "cterm": "234", "cterm16": "0" }}
 colorscheme onedark
 let g:lightline = {'colorscheme': 'onedark'}
+
+lua << EOF
+require'nvim-tree'.setup {
+  open_on_setup = true, -- auto open when opening a directory
+  open_on_setup_file = true, -- auto open when opening a file
+}
+EOF
+
+" auto close tree
+autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif
