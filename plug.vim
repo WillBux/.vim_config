@@ -33,6 +33,8 @@ Plug 'dense-analysis/ale'
 " Markdown
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
+" Sandwich
+Plug 'machakann/vim-sandwich'
 
 call plug#end()
 
@@ -61,10 +63,10 @@ let g:lightline = {'colorscheme': 'onedark'}
 
 " nvim-tree
 lua << EOF
-require'nvim-tree'.setup {
-  open_on_setup = true, -- auto open when opening a directory
-  open_on_setup_file = true, -- auto open when opening a file
-}
+    require'nvim-tree'.setup {
+        open_on_setup = true, -- auto open when opening a directory
+        open_on_setup_file = true, -- auto open when opening a file
+    }
 EOF
 
 " auto close tree
@@ -77,3 +79,7 @@ let g:ale_sign_column_always = 1
 
 " Markdown
 let g:mkdp_auto_start = 1
+
+" Sandwich
+let g:sandwich#recipes = deepcopy(g:sandwich#default_recipes)
+
