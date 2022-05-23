@@ -36,6 +36,9 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': 
 " Sandwich
 Plug 'machakann/vim-sandwich'
 
+" signify -- diff for git
+Plug 'mhinz/vim-signify'
+
 call plug#end()
 
 " onedark
