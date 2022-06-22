@@ -1,7 +1,6 @@
 # My Neovim Configuration
 
-To install clone in home directory  
-Run install script `sh install.sh`
+To install clone into `~/.config/nvim` 
 
 ![Neovim Preview](preview.png "Neovim Preview")
 
