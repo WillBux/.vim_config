@@ -32,7 +32,7 @@ lualine.setup()
 -- tresitter
 require('nvim-treesitter.configs').setup {
     -- A list of parser names, or "all"
-    ensure_installed = "all",
+    ensure_installed = {"c", "cpp", "c_sharp", "lua", "python", "cmake", "markdown", "markdown_inline", "r", "regex", "vim", "make", "json"},
 
     -- Install parsers synchronously (only applied to `ensure_installed`)
     sync_install = true,
@@ -92,4 +92,42 @@ vim.g.mkdp_auto_start = 1
 
 -- Sandwich
 vim.g['sandwich#recipes'] = vim.deepcopy(vim.g['sandwich#default_recipes'])
+
+-- Setup nvim_cmp
+local cmp = require('cmp')
+cmp.setup({
+    snippet = {
+        expand = function(args)
+            vim.fn["UltiSnips#Anon"](args.body)
+        end,
+    },
+    window = {
+        -- completion = cmp.config.window.bordered(),
+        -- documentation = cmp.config.window.bordered(),
+    },
+    mapping = cmp.mapping.preset.insert({
+        ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-f>'] = cmp.mapping.scroll_docs(4),
+        ['<C-Space>'] = cmp.mapping.complete(),
+        ['<C-e>'] = cmp.mapping.abort(),
+        ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set 'select' to 'false' to only confirm explicitly selected items.
+    }),
+    sources = cmp.config.sources({
+        { name = 'nvim_lsp' },
+        { name = 'ultisnips' },
+    }, {
+        { name = 'buffer' },
+    })
+})
+
+-- Setup lspconfig
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local lspconfig = require('lspconfig')
+lspconfig.ccls.setup {
+    init_options = {
+        cache = {
+            directory = ".ccls-cache";
+        }
+    }
+}
 
