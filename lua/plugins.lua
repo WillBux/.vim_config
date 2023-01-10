@@ -21,7 +21,7 @@ onedarkpro.setup({
         keywords = "bold,italic",
         strings = "NONE",
         variables = "NONE",
-        virtual_text = "NONE"
+        virtual_text = "NONE",
     }
 })
 onedarkpro.load()
@@ -71,6 +71,7 @@ require("indent_blankline").setup {
 require'nvim-tree'.setup {
     open_on_setup = true, -- auto open when opening a directory
     open_on_setup_file = true, -- auto open when opening a file
+    open_on_tab = true,
 }
 
 -- telescope
@@ -110,7 +111,7 @@ cmp.setup({
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
         ['<C-Space>'] = cmp.mapping.complete(),
         ['<C-e>'] = cmp.mapping.abort(),
-        ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set 'select' to 'false' to only confirm explicitly selected items.
+        ['\t'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set 'select' to 'false' to only confirm explicitly selected items.
     }),
     sources = cmp.config.sources({
         { name = 'nvim_lsp' },
@@ -120,14 +121,39 @@ cmp.setup({
     })
 })
 
+
 -- Setup lspconfig
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 local lspconfig = require('lspconfig')
 lspconfig.ccls.setup {
+    capabilities = capabilities,
     init_options = {
         cache = {
             directory = ".ccls-cache";
         }
     }
 }
+lspconfig.pyright.setup {
+    capabilities = capabilities,
+    on_attach = on_attach,
+    flags = lsp_flags,
+}
 
+-- vimtex
+vim.g.vimtex_view_method = "zathura"
+vim.g.vimtex_view_general_viewer = "zathura"
+vim.g.vimtex_view_forward_search_on_start = false
+vim.g.vimtex_toc_config = {
+    mode = 1,
+    fold_enable = 0,
+    hide_line_numbers = 1,
+    resize = 0,
+    refresh_always = 1,
+    show_help = 0,
+    show_numbers = 1,
+    split_pos = 'leftabove',
+    split_width = 30,
+    tocdeth = 3,
+    indent_levels = 1,
+    todo_sorted = 1,
+}
