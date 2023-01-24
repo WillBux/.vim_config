@@ -25,6 +25,7 @@ onedarkpro.setup({
     }
 })
 onedarkpro.load()
+vim.cmd("colorscheme onedark_dark")
 
 local lualine = require('lualine')
 lualine.setup()
