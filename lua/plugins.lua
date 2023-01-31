@@ -27,6 +27,23 @@ onedarkpro.setup({
 onedarkpro.load()
 vim.cmd("colorscheme onedark_dark")
 
+vim.g.neon_style = "dark"
+vim.cmd[[colorscheme neon]]
+
+-- spelling
+vim.cmd([[
+    let &t_Cs = "\e[4:3m"
+    let &t_Ce = "\e[4:0m"
+
+    highlight clear SpellBad
+    highlight SpellBad   guisp=red    gui=undercurl term=undercurl cterm=undercurl guibg=transparent guifg=transparent
+    highlight SpellCap   guisp=yellow gui=undercurl term=undercurl cterm=undercurl guibg=transparent guifg=transparent
+    highlight SpellRare  guisp=blue   gui=undercurl term=undercurl cterm=undercurl guibg=transparent guifg=transparent
+    highlight SpellLocal guisp=orange gui=undercurl term=undercurl cterm=undercurl guibg=transparent guifg=transparent
+
+    set spell spelllang=en_us termguicolors
+]])
+
 local lualine = require('lualine')
 lualine.setup()
 

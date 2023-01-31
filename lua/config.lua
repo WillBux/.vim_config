@@ -8,12 +8,8 @@ vim.opt.termguicolors = true
 vim.opt.number=true
 vim.opt.numberwidth=1
 
--- spelling, underline with redaoeuad
-vim.opt.spell=true
-vim.cmd([[
-highlight clear SpellBad
-highlight SpellBad term=NONE cterm=underline ctermfg=196 gui=undercurl guifg=#ff0000
-]])
+-- spelling, underline with red
+-- in plugins file after theme
 
 -- history
 vim.opt.history=500

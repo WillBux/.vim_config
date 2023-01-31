@@ -17,6 +17,7 @@ return require('packer').startup(function(use)
     
     -- Theme
     use 'olimorris/onedarkpro.nvim'
+    use "rafamadriz/neon"
 
     -- tree sitter
     use {
