@@ -11,41 +11,41 @@ _G.__luacache_config = {
 }
 require('impatient')
 
--- theme onedarkpro
-local onedarkpro = require("onedarkpro")
-onedarkpro.setup({
-    theme = "onedark_dark", -- The default dark theme
-    styles = {
-        comments = "italic",
-        functions = "NONE",
-        keywords = "bold,italic",
-        strings = "NONE",
-        variables = "NONE",
-        virtual_text = "NONE",
+-- lualine theme
+require('lualine').setup {
+    options = {
+        theme = 'material'
+    }
+}
+
+-- theme material (deep ocean)
+vim.g.material_style = "deep ocean"
+require('material').setup({
+    lualine_style = 'stealth',
+    high_visibility = {
+        darker = true,
+    },
+    custom_highlights = {
+        SpellBad = {sp = "#F07178", undercurl=true},
+        SpellCap = {sp = "#FFCB6B", undercurl=true},
+        SpellRare = {sp = "#82AAFF", undercurl=true},
+        SpellLocal = {sp = "#F78C6C", undercurl=true}
+    },
+    disable = {
+        background = true,
+    },
+    plugins = {
+        "nvim-tree",
+        "telescope",
+        "nvim-cmp",
+        "indent-blankline",
+        "gitsigns",
+        "nvim-web-devicons"
     }
 })
-onedarkpro.load()
-vim.cmd("colorscheme onedark_dark")
 
-vim.g.neon_style = "dark"
-vim.cmd[[colorscheme neon]]
-
--- spelling
-vim.cmd([[
-    let &t_Cs = "\e[4:3m"
-    let &t_Ce = "\e[4:0m"
-
-    highlight clear SpellBad
-    highlight SpellBad   guisp=red    gui=undercurl term=undercurl cterm=undercurl guibg=transparent guifg=transparent
-    highlight SpellCap   guisp=yellow gui=undercurl term=undercurl cterm=undercurl guibg=transparent guifg=transparent
-    highlight SpellRare  guisp=blue   gui=undercurl term=undercurl cterm=undercurl guibg=transparent guifg=transparent
-    highlight SpellLocal guisp=orange gui=undercurl term=undercurl cterm=undercurl guibg=transparent guifg=transparent
-
-    set spell spelllang=en_us termguicolors
-]])
-
-local lualine = require('lualine')
-lualine.setup()
+vim.cmd 'colorscheme material'
+vim.cmd 'set spell spelllang=en_us termguicolors'
 
 -- tresitter
 require('nvim-treesitter.configs').setup {
@@ -92,6 +92,9 @@ require'nvim-tree'.setup {
     open_on_tab = true,
 }
 
+-- gitsigns
+require('gitsigns').setup()
+
 -- telescope
 vim.keymap.set("n", "<leader>ff", "<cmd>lua require('telescope.builtin').find_files()<cr>")
 vim.keymap.set("n", "<leader>fg", "<cmd>lua require('telescope.builtin').live_grep()<cr>")
@@ -100,6 +103,7 @@ vim.keymap.set("n", "<leader>fh", "<cmd>lua require('telescope.builtin').help_ta
 
 -- auto close tree
 vim.cmd([[autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif]])
+vim.keymap.set("n", "<leader>tt", ":NvimTreeToggle<CR>")
 
 -- ALE
 vim.g.ale_sign_error = '►'

@@ -16,8 +16,7 @@ local packer_bootstrap = ensure_packer()
 return require('packer').startup(function(use)
     
     -- Theme
-    use 'olimorris/onedarkpro.nvim'
-    use "rafamadriz/neon"
+    use 'marko-cerovac/material.nvim'
 
     -- tree sitter
     use {
@@ -74,8 +73,8 @@ return require('packer').startup(function(use)
     -- Sandwich
     use 'machakann/vim-sandwich'
 
-    -- signify -- diff for git
-    use 'mhinz/vim-signify'
+    -- gitsigns -- diff for git
+    use 'lewis6991/gitsigns.nvim'
 
     -- markdown
     use({
