@@ -82,6 +82,8 @@ return require('packer').startup(function(use)
         run = function() vim.fn["mkdp#util#install"]() end,
     })
 
+    use 'folke/which-key.nvim'
+
     -- cash to speed up loading
     use 'lewis6991/impatient.nvim'
 
