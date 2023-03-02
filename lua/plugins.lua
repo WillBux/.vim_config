@@ -51,7 +51,7 @@ vim.cmd 'set spell spelllang=en_us termguicolors'
 -- tresitter
 require('nvim-treesitter.configs').setup {
     -- A list of parser names, or "all"
-    ensure_installed = {"c", "cpp", "c_sharp", "lua", "python", "cmake", "markdown", "markdown_inline", "r", "regex", "vim", "make", "json"},
+    ensure_installed = {"c", "cpp", "c_sharp", "lua", "python", "cmake", "markdown", "markdown_inline", "r", "regex", "vim", "make", "json", "svelte"},
 
     -- Install parsers synchronously (only applied to `ensure_installed`)
     sync_install = true,
@@ -111,7 +111,7 @@ vim.keymap.set("n", "<leader>tt", ":NvimTreeToggle<CR>")
 vim.g.ale_sign_error = '►'
 vim.g.ale_sign_warning = '▻'
 vim.g.ale_sign_column_always = 1
-
+vim.api.nvim_create_autocmd('BufEnter', {pattern='*.lst', command = ":ALEDisable"})
 -- Markdown
 vim.g.mkdp_auto_start = 1
 
