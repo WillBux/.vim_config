@@ -77,13 +77,55 @@ require('nvim-treesitter.configs').setup {
     },
 }
 
+require("aerial").setup({
+    -- Priority list of preferred backends for aerial.
+    backends = { "treesitter", "lsp", "markdown", "man" },
+
+    -- A list of all symbols to display. Set to false to display all symbols.
+    -- This can be a filetype map (see :help aerial-filetype-map)
+    -- To see all available values, see :help SymbolKind
+    filter_kind = {
+        "Class",
+        "Constructor",
+        "Enum",
+        "Function",
+        "Interface",
+        "Module",
+        "Method",
+        "Struct",
+    },
+
+    manage_folds = true,
+    link_folds_to_tree = true,
+    link_tree_to_folds = true,
+
+    -- open in supported buffers
+    open_automatic = true,
+
+    -- Show box drawing characters for the tree hierarchy
+    show_guides = false,
+
+    -- optionally use on_attach to set keymaps when aerial has attached to a buffer
+    on_attach = function(bufnr)
+        -- Jump forwards/backwards with '{' and '}'
+        vim.keymap.set("n", "{", "<cmd>AerialPrev<CR>", { buffer = bufnr })
+        vim.keymap.set("n", "}", "<cmd>AerialNext<CR>", { buffer = bufnr })
+    end,
+
+})
+
+-- toggle aerial
+vim.keymap.set("n", "<leader>a", "<cmd>AerialToggle!<CR>")
+
+
 -- indent-backline
 --vim.opt.list = true
 --vim.opt.listchars:append("space:⋅")
 --vim.opt.listchars:append("eol:↴")
-require("indent_blankline").setup {
-    show_current_context = true,
-    show_current_context_start = true,
+require("ibl").setup {
+    enabled = true,
+    scope = {
+    }
 }
 
 -- nvim-tree
@@ -91,6 +133,14 @@ require'nvim-tree'.setup {
     open_on_setup = true, -- auto open when opening a directory
     open_on_setup_file = true, -- auto open when opening a file
     open_on_tab = true,
+    filters = {
+        dotfiles = false,
+    },
+    git = {
+        enable = true,
+        ignore = false,
+        timeout = 500,
+    },
 }
 
 -- gitsigns
@@ -104,7 +154,28 @@ vim.keymap.set("n", "<leader>fh", "<cmd>lua require('telescope.builtin').help_ta
 vim.keymap.set("n", "<leader>fc", "<cmd>lua require('telescope.builtin').commands()<cr>")
 
 -- auto close tree
-vim.cmd([[autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif]])
+local function is_modified_buffer_open(buffers)
+    for _, v in pairs(buffers) do
+        if v.name:match("NvimTree_") == nil then
+            return true
+        end
+    end
+    return false
+end
+
+vim.api.nvim_create_autocmd("BufEnter", {
+    nested = true,
+    callback = function()
+        if
+            #vim.api.nvim_list_wins() == 1
+            and vim.api.nvim_buf_get_name(0):match("NvimTree_") ~= nil
+            and is_modified_buffer_open(vim.fn.getbufinfo({ bufmodified = 1 })) == false
+        then
+            vim.cmd("quit")
+        end
+    end,
+})
+
 vim.keymap.set("n", "<leader>tt", ":NvimTreeToggle<CR>")
 
 -- ALE
@@ -114,6 +185,8 @@ vim.g.ale_sign_column_always = 1
 vim.api.nvim_create_autocmd('BufEnter', {pattern='*.lst', command = ":ALEDisable"})
 -- Markdown
 vim.g.mkdp_auto_start = 1
+vim.g.mkdp_auto_close = 1
+vim.g.mkdp_browser = '/Applications/Google Chrome.app'
 
 -- Sandwich
 vim.g['sandwich#recipes'] = vim.deepcopy(vim.g['sandwich#default_recipes'])

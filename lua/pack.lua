@@ -24,6 +24,14 @@ return require('packer').startup(function(use)
         run = ':TSUpdate'
     }
 
+    -- aerial, code outlining
+    use {
+        "stevearc/aerial.nvim",
+        requires = {
+          'kyazdani42/nvim-web-devicons'
+        },
+    }
+
     -- Completion
     use 'neovim/nvim-lspconfig'
     use 'hrsh7th/cmp-nvim-lsp'
@@ -78,8 +86,13 @@ return require('packer').startup(function(use)
 
     -- markdown
     use({
-        "iamcco/markdown-preview.nvim",
-        run = function() vim.fn["mkdp#util#install"]() end,
+      'toppair/peek.nvim',
+      run = 'deno task --quiet build:fast',
+      config = function()
+        require("peek").setup()
+        vim.api.nvim_create_user_command("PeekOpen", require("peek").open, {})
+        vim.api.nvim_create_user_command("PeekClose", require("peek").close, {})
+      end,
     })
 
     use 'folke/which-key.nvim'
