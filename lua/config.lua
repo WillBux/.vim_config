@@ -76,4 +76,5 @@ vim.opt.wrap=true -- Wrap lines
 
 -- toggle commands
 vim.keymap.set("n", "<leader>ta", "<cmd>ALEToggle<CR>")
+vim.keymap.set("n", "<leader>tp", "<cmd>PeakToggle<CR>")
 
