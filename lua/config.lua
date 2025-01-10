@@ -1,4 +1,9 @@
 vim.opt.encoding="utf-8"
+vim.loader.enable()
+
+-- disable netrw at the very start of your init.lua for nvim-tree
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 
 -- true 256bit color support
 vim.opt.termguicolors = true
@@ -77,4 +82,9 @@ vim.opt.wrap=true -- Wrap lines
 -- toggle commands
 vim.keymap.set("n", "<leader>ta", "<cmd>ALEToggle<CR>")
 vim.keymap.set("n", "<leader>tp", "<cmd>PeakToggle<CR>")
+vim.keymap.set("n", "<leader>a", "<cmd>AerialToggle!<CR>")
+vim.keymap.set("n", "<leader>tt", ":NvimTreeToggle<CR>")
 
+--whichkey 
+vim.o.timeout = true
+vim.o.timeoutlen = 150
