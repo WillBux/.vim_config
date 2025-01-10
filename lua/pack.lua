@@ -61,11 +61,10 @@ return require('packer').startup(function(use)
     
     -- Tree 
     use {
-        'kyazdani42/nvim-tree.lua',
+        'nvim-tree/nvim-tree.lua',
         requires = {
-          'kyazdani42/nvim-web-devicons', 
+          'nvim-tree/nvim-web-devicons', 
         },
-        tag = 'nightly' 
     }
 
     -- telescope
